@@ -6,30 +6,21 @@
         </button>
       </ion-nav-buttons>
   <ion-content>
-      
+    
     <div class="list card">
 
       <div class="item item-avatar item-text-wrap">
-        <img src="img/tire.png">
+        <img src="img/ionic.png">
         <h2>{{ApplicationName}} </h2>
         <p>Version 1.0</p>
       </div>
 
       <div class="item item-body">
           <canvas id="line" class="chart chart-line" chart-data="data"
-          chart-labels="labels" chart-series="series" chart-options="options"
-          chart-dataset-override="datasetOverride" chart-click="onClick">
-      </canvas>
+              chart-labels="labels" chart-series="series" chart-options="options"
+              chart-dataset-override="datasetOverride" chart-click="onClick">
+          </canvas>
 
-        <img class="full-image" src="img/tirebig.png" style="width: 250px">
-        <p>
-          This is a {{ApplicationName}}.
-        </p>
-        <p ng-hide="menulogin">                    
-          <button class="button button-positive icon ion-log-in" onclick="window.open('#/app/login','_self')">
-              Login
-          </button>
-        </p>
       </div>
 
     </div>
