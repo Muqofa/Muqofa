@@ -71,26 +71,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       })
 
-      .state('app.updateremainlog', {
-        url: '/updateremainlog',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/updateremainlog.html',
-            controller: 'LogCtrl'
-          }
-        }
-      })
-
-      .state('app.updateremain', {
-        url: '/updateremain',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/updateremain.html',
-            controller: 'UpdateremainCtrl'
-          }
-        }
-      })
-
       .state('app.login', {
         url: '/login',
         views: {
