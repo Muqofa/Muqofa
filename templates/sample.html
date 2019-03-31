@@ -1,0 +1,53 @@
+<ion-view view-title="Sample">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="logout()" ng-show="menulogin">
+      <i class="icon ion-log-out"></i>
+      Log Out
+    </button>
+  </ion-nav-buttons>
+  
+  <ion-content
+    delegate-handle=""
+    direction="xy"
+    locking=""
+    padding=""
+    scroll=""
+    overflow-scroll=""
+    scrollbar-x=""
+    scrollbar-y=""
+    start-x=""
+    start-y=""
+    on-scroll=""
+    on-scroll-complete=""
+    has-bouncing=""
+    scroll-event-interval=""
+  >  
+  <div class="row" ng-repeat="dt in layouts">
+      <div class="{{dt2.class}}" ng-repeat="dt2 in dt.col">
+        
+        <div class="list card">
+          <div class="item item-avatar">
+            <img src="avatar.jpg">
+            <h2>Pretty Hate Machine</h2>
+            <p>Nine Inch Nails</p>
+          </div>
+        
+          <div class="item item-image">
+            <img src="cover.jpg">
+          </div>
+        
+          <a class="item item-icon-left assertive" href="#">
+            <i class="icon ion-music-note"></i>
+            Start listening
+          </a>
+        </div>
+        
+      </div>
+    </div>  
+  </ion-content>
+  
+</ion-view>

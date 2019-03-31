@@ -1,31 +1,34 @@
 angular.module('starter.controllers', [])
 
-  .controller('AppCtrl', function ($scope, $ionicModal, $timeout, Commons,$state) {
-    
+  .controller('AppCtrl', function ($scope, $ionicModal, $timeout, Commons, $state) {
+
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
     // listen for the $ionicView.enter event:
     $scope.ApplicationName = 'My Application';
     $scope.menulogin = false;
-    $scope.$on('$ionicView.enter', function(e) {
+    $scope.$on('$ionicView.enter', function (e) {
       $scope.Username = Commons.getUser().username;
-      if($scope.Username==''){
+      if ($scope.Username == '') {
         $scope.menulogin = false;
-      }else{
+      } else {
         $scope.menulogin = true;
       }
     });
 
-    $scope.logout= function(){
-      Commons.setUser({username:'',token:''});
+    $scope.logout = function () {
+      Commons.setUser({
+        username: '',
+        token: ''
+      });
       $scope.Username = '';
       $scope.menulogin = false;
       //alert(Commons.getUser().username);
       $state.go('app.login', {}, {
         reload: true,
         location: 'replace',
-        inherit:true
+        inherit: true
       });
     };
     /*
@@ -66,54 +69,137 @@ angular.module('starter.controllers', [])
     */
   })
 
-  .controller('UpdateremainCtrl', function ($scope, $http,$state,Commons,$ionicHistory) {
+  .controller('UpdateremainCtrl', function ($scope, $http, $state, Commons, $ionicHistory) {
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
 
-    $scope.$on('$ionicView.enter', function(){
+    $scope.$on('$ionicView.enter', function () {
       //alert(Commons.getUser().username);
       // Anything you can think of
-      if (Commons.getUser().username=='') {
+      if (Commons.getUser().username == '') {
         $state.go('app.denied', {}, {
           reload: true,
           location: 'replace',
-          inherit:true
+          inherit: true
         });
       }
     });
 
-    $scope.table = [
-      {th:'Changed Date', td:'InsertDate'},
-      {th:'User Name', td:'UserName'},
-      {th:'Cart Number', td:'CARTNUMBER'},
-      {th:'Part Number', td:'PARTNUMBER'},
-      {th:'Material ID', td:'MATERIALID'},
-      {th:'User Size', td:'USERSIZE'},
-      {th:'Using MC', td:'USINGMACHINE'},
-      {th:'Remain From', td:'REMAINFROM'},
-      {th:'Remain To', td:'REMAINTO'}
+    $scope.table = [{
+        th: 'Changed Date',
+        td: 'InsertDate'
+      },
+      {
+        th: 'User Name',
+        td: 'UserName'
+      },
+      {
+        th: 'Cart Number',
+        td: 'CARTNUMBER'
+      },
+      {
+        th: 'Part Number',
+        td: 'PARTNUMBER'
+      },
+      {
+        th: 'Material ID',
+        td: 'MATERIALID'
+      },
+      {
+        th: 'User Size',
+        td: 'USERSIZE'
+      },
+      {
+        th: 'Using MC',
+        td: 'USINGMACHINE'
+      },
+      {
+        th: 'Remain From',
+        td: 'REMAINFROM'
+      },
+      {
+        th: 'Remain To',
+        td: 'REMAINTO'
+      }
     ];
     $scope.maximumremaininputs = {
-       51:{text:'TREAD',val:100}
-      ,52:{text:'SIDE',val:100}
-      ,53:{text:'FILLER',val:100}
-      ,61:{text:'PLY',val:100}
-      ,62:{text:'BUC/2ND BF',val:100}
-      ,63:{text:'FLIPPER',val:100}
-      ,64:{text:'CHAFER',val:100}
-      ,65:{text:'BELT',val:100}
-      ,66:{text:'OHABA LAY',val:100}
-      ,67:{text:'SP LAYER',val:100}
-      ,69:{text:'IN/CH DOUB',val:100}
-      ,70:{text:'INNERLINER',val:10}
-      ,71:{text:'END GUM',val:100}
-      ,72:{text:'END GUM SL',val:100}
-      ,81:{text:'BEAD',val:100}
-      ,85:{text:'BEAD/BF',val:100}
-      ,B1:{text:'TEX TREAT',val:100}
-      ,B2:{text:'SR TREAT',val:100}
-      ,C1:{text:'OHABA CHA',val:100}      
+      51: {
+        text: 'TREAD',
+        val: 100
+      },
+      52: {
+        text: 'SIDE',
+        val: 100
+      },
+      53: {
+        text: 'FILLER',
+        val: 100
+      },
+      61: {
+        text: 'PLY',
+        val: 100
+      },
+      62: {
+        text: 'BUC/2ND BF',
+        val: 100
+      },
+      63: {
+        text: 'FLIPPER',
+        val: 100
+      },
+      64: {
+        text: 'CHAFER',
+        val: 100
+      },
+      65: {
+        text: 'BELT',
+        val: 100
+      },
+      66: {
+        text: 'OHABA LAY',
+        val: 100
+      },
+      67: {
+        text: 'SP LAYER',
+        val: 100
+      },
+      69: {
+        text: 'IN/CH DOUB',
+        val: 100
+      },
+      70: {
+        text: 'INNERLINER',
+        val: 10
+      },
+      71: {
+        text: 'END GUM',
+        val: 100
+      },
+      72: {
+        text: 'END GUM SL',
+        val: 100
+      },
+      81: {
+        text: 'BEAD',
+        val: 100
+      },
+      85: {
+        text: 'BEAD/BF',
+        val: 100
+      },
+      B1: {
+        text: 'TEX TREAT',
+        val: 100
+      },
+      B2: {
+        text: 'SR TREAT',
+        val: 100
+      },
+      C1: {
+        text: 'OHABA CHA',
+        val: 100
+      }
     };
     $scope.material = [];
     $scope.editremain = {};
@@ -126,12 +212,12 @@ angular.module('starter.controllers', [])
       $scope.editremain.num = 0;
       $scope.maxRemain = 0;
       $scope.materialchangelog = [];
-      
-      if (id.length<10){
+
+      if (id.length < 10) {
         return
       }
       //alert(Commons.getUser().token);
-      $http.get(Commons.getDefaultWebApi()+'BSINKBOSS/GetMaterialInventory', {
+      $http.get(Commons.getDefaultWebApi() + 'BSINKBOSS/GetMaterialInventory', {
         params: {
           cartnumber: id
         },
@@ -140,39 +226,38 @@ angular.module('starter.controllers', [])
           Authorization: 'Bearer ' + Commons.getUser().token
         }
       }).then(function (response) {
-        
-        if (response.data.length == 0) {          
-        } else {
-          if(angular.isUndefined(response.data.tbl[0])){
-            
-          }else{
+
+        if (response.data.length == 0) {} else {
+          if (angular.isUndefined(response.data.tbl[0])) {
+
+          } else {
             $scope.material = response.data.tbl[0];
             $scope.editremain.num = $scope.material.REMAIN;
             $scope.maxRemain = $scope.material.ACTUAL;
             $scope.maxRemainMatID = $scope.maximumremaininputs[$scope.material.MATERIALID].val;
-            if ($scope.maxRemainMatID < $scope.maxRemain){
-              $scope.maxRemain =$scope.maxRemainMatID;
+            if ($scope.maxRemainMatID < $scope.maxRemain) {
+              $scope.maxRemain = $scope.maxRemainMatID;
             }
             //alert($scope.maxRemainMatID + ' - ' + $scope.maxRemain);
             //goto editremain
 
           }
-          
+
           $scope.getDtMaterialInventoryLogCartNumber(id);
         }
       });
     }
-    $scope.isLoading=false;
+    $scope.isLoading = false;
     $scope.materialchangelog = [];
-    $scope.canupdate=true;
+    $scope.canupdate = true;
     $scope.maxupdatefreq = 1;
     $scope.getDtMaterialInventoryLogCartNumber = function (id) {
       var cartnumberstr = id.substring(0, 10);
       $scope.materialchangelog = [];
-      $scope.canupdate=false;
+      $scope.canupdate = false;
       //alert(cartnumberstr);
-      $scope.isLoading=true;
-      $http.get(Commons.getDefaultWebApi()+'BSINKBOSS/GetMaterialInventoryChangeLog', {
+      $scope.isLoading = true;
+      $http.get(Commons.getDefaultWebApi() + 'BSINKBOSS/GetMaterialInventoryChangeLog', {
         params: {
           cartnumber: cartnumberstr
         },
@@ -185,12 +270,12 @@ angular.module('starter.controllers', [])
           $scope.materialchangelog = [];
         } else {
           $scope.materialchangelog = response.data.tbl;
-          $scope.canupdate=true;
-          if($scope.materialchangelog.length >= $scope.maxupdatefreq){
-            $scope.canupdate=false;
+          $scope.canupdate = true;
+          if ($scope.materialchangelog.length >= $scope.maxupdatefreq) {
+            $scope.canupdate = false;
           }
         }
-        $scope.isLoading=false;
+        $scope.isLoading = false;
       });
     }
 
@@ -198,12 +283,12 @@ angular.module('starter.controllers', [])
 
     $scope.updateDt = function () {
       //alert($scope.editremain.num);
-      if($scope.canupdate == false){
+      if ($scope.canupdate == false) {
         alert('Sorry, cannot update more than one ');
         return;
       }
       var editremainnum = $scope.editremain.num;
-      if(angular.isUndefined($scope.editremain.num)){
+      if (angular.isUndefined($scope.editremain.num)) {
         alert('Sorry, cannot update more than maximum value');
         return;
       }
@@ -212,12 +297,12 @@ angular.module('starter.controllers', [])
 
       var dt = $scope.material;
 
-      $http.get(Commons.getDefaultWebApi()+'BSINKBOSS/SetMaterialInventory', {
+      $http.get(Commons.getDefaultWebApi() + 'BSINKBOSS/SetMaterialInventory', {
         params: {
           cartnumber: dt.CARTNUMBER,
-          remainTo:  $scope.editremain.num,
-          keyID:'1',
-          username:Commons.getUser().username
+          remainTo: $scope.editremain.num,
+          keyID: '1',
+          username: Commons.getUser().username
         },
         headers: {
           'Content-Type': 'application/json',
@@ -233,18 +318,18 @@ angular.module('starter.controllers', [])
       });
     }
 
-    $scope.getStatusCart = function(id){
+    $scope.getStatusCart = function (id) {
 
-      if(id==0){
+      if (id == 0) {
         return 'Not Use'
       }
-      if(id==1){
+      if (id == 1) {
         return 'Using'
       }
-      if(id==2){
+      if (id == 2) {
         return 'Used'
       }
-      if(id==3){
+      if (id == 3) {
         return 'Hold'
       }
 
@@ -253,26 +338,54 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('LogCtrl', function ($scope, $stateParams, $ionicHistory, Commons,$http, ionicDatePicker, $timeout, Excel) {
+  .controller('LogCtrl', function ($scope, $stateParams, $ionicHistory, Commons, $http, ionicDatePicker, $timeout, Excel) {
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
 
-    $scope.table = [{th:'Changed Date', td:'InsertDate'},
-                    {th:'User Name', td:'UserName'},
-                    {th:'Cart Number', td:'CARTNUMBER'},
-                    {th:'Part Number', td:'PARTNUMBER'},
-                    {th:'Material ID', td:'MATERIALID'},
-                    {th:'User Size', td:'USERSIZE'},
-                    {th:'Using MC', td:'USINGMACHINE'},
-                    {th:'Remain From', td:'REMAINFROM'},
-                    {th:'Remain To', td:'REMAINTO'}];
+    $scope.table = [{
+        th: 'Changed Date',
+        td: 'InsertDate'
+      },
+      {
+        th: 'User Name',
+        td: 'UserName'
+      },
+      {
+        th: 'Cart Number',
+        td: 'CARTNUMBER'
+      },
+      {
+        th: 'Part Number',
+        td: 'PARTNUMBER'
+      },
+      {
+        th: 'Material ID',
+        td: 'MATERIALID'
+      },
+      {
+        th: 'User Size',
+        td: 'USERSIZE'
+      },
+      {
+        th: 'Using MC',
+        td: 'USINGMACHINE'
+      },
+      {
+        th: 'Remain From',
+        td: 'REMAINFROM'
+      },
+      {
+        th: 'Remain To',
+        td: 'REMAINTO'
+      }
+    ];
     $scope.user = Commons.getUser();
     $scope.tgl1 = '';
     $scope.tgl2 = '';
     $scope.getDtMaterialInventoryLogCartNumber = function () {
-      $scope.isLoading=true;
-      $http.get(Commons.getDefaultWebApi()+'BSINKBOSS/GetMaterialInventoryChangeLogTgl', {
+      $scope.isLoading = true;
+      $http.get(Commons.getDefaultWebApi() + 'BSINKBOSS/GetMaterialInventoryChangeLogTgl', {
         params: {
           tgl1: $scope.tgl1,
           tgl2: $scope.tgl2
@@ -287,14 +400,14 @@ angular.module('starter.controllers', [])
         } else {
           $scope.materialchangelog = response.data.tbl;
         }
-        $scope.isLoading=false;
+        $scope.isLoading = false;
       });
     }
     $scope.getDtMaterialInventoryLogCartNumber();
 
     $scope.openDatePickerOne = function (val) {
       var ipObj1 = {
-        callback: function (val) {  //Mandatory
+        callback: function (val) { //Mandatory
           console.log('Return value from the datepicker popup is : ' + val, new Date(val));
           $scope.tgl1 = new Date(val);
           var tgl1 = new Date(val);
@@ -317,24 +430,47 @@ angular.module('starter.controllers', [])
       ionicDatePicker.openDatePicker(ipObj1);
     };
     //export excel
-    $scope.exportToExcel=function(tableId){ // ex: '#my-table'
-      var exportHref=Excel.tableToExcel(tableId,'sheet1');
-      $timeout(function(){location.href=exportHref;},100); // trigger download
+    $scope.exportToExcel = function (tableId) { // ex: '#my-table'
+      var exportHref = Excel.tableToExcel(tableId, 'sheet1');
+      $timeout(function () {
+        location.href = exportHref;
+      }, 100); // trigger download
     }
   })
 
-  .controller('DeniedCtrl', function ($scope, $stateParams, $state,$ionicHistory) {
+  .controller('DeniedCtrl', function ($scope, $stateParams, $state, $ionicHistory) {
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
 
-    $scope.gotologin=function(){
+    $scope.gotologin = function () {
       $state.go('app.login', {}, {
         reload: true,
         location: 'replace',
-        inherit:true
+        inherit: true
       });
     }
+  })
+
+  .controller('SampleCtrl', function ($scope, $stateParams, $state, $ionicHistory) {
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
+
+    $scope.gotologin = function () {
+      $state.go('app.login', {}, {
+        reload: true,
+        location: 'replace',
+        inherit: true
+      });
+    }
+
+    $scope.layouts = [{ro:0,text:'Test',col:[{text:'col 1',class:'col col-75'},{text:'col 2',class:'col'}]}
+                     ,{ro:0,text:'Test',col:[{text:'col 1',class:'col'},{text:'col 2',class:'col'},{text:'col 3',class:'col'}]}
+                     ,{ro:0,text:'Test',col:[{text:'col 1',class:'col'},{text:'col 2',class:'col'},{text:'col 3',class:'col'},{text:'col 4',class:'col'}]}
+                     ,{ro:0,text:'Test',col:[{text:'col 1',class:'col'},{text:'col 2',class:'col'},{text:'col 3',class:'col'}]}
+    ];
+
   })
 
 
@@ -347,8 +483,8 @@ angular.module('starter.controllers', [])
     Commons.setUser('');
 
     $scope.login = function () {
-      $scope.isLoading=true;
-      $http.get(Commons.getDefaultWebApi()+'Common/LoginApp', {
+      $scope.isLoading = true;
+      $http.get(Commons.getDefaultWebApi() + 'Common/LoginApp', {
         params: {
           Username: $scope.loginData.username,
           Password: $scope.loginData.password,
@@ -363,20 +499,23 @@ angular.module('starter.controllers', [])
           //alert(response.data);
         } else {
           //alert(response.data);
-          if(response.data.Access==true){
-            var dtuser = {username:$scope.loginData.username,token:response.data.Token};
+          if (response.data.Access == true) {
+            var dtuser = {
+              username: $scope.loginData.username,
+              token: response.data.Token
+            };
             Commons.setUser(dtuser);
             // + response.data.AppName[0].ApplicationName
             alert('Login success ');
             $state.go('app.home', {}, {
               reload: true,
               location: 'replace',
-              inherit:true
+              inherit: true
             });
           }
 
         }
-        $scope.isLoading=false;
+        $scope.isLoading = false;
       });
     }
     $scope.login();
@@ -423,74 +562,93 @@ angular.module('starter.controllers', [])
         }
       });
       */
-    /*
-      Commons.setUser($scope.loginData.username);
-      alert($scope.loginData.username);
-      //goto stockcheck
-      //$state.go('app.stockcheck', {});
-      $state.go('app.updateremain', {}, {
-        reload: true,
-        location: 'replace',
-        inherit:true
-      });
-    */
+      /*
+        Commons.setUser($scope.loginData.username);
+        alert($scope.loginData.username);
+        //goto stockcheck
+        //$state.go('app.stockcheck', {});
+        $state.go('app.updateremain', {}, {
+          reload: true,
+          location: 'replace',
+          inherit:true
+        });
+      */
       //$window.open('./#/app/updateremain', '_self');
       //$location.url('./#/app/stockcheck');
     };
   })
 
-  .controller('HomeCtrl', function ($scope, $stateParams, $ionicHistory, $state,$ionicModal, Commons) {
+  .controller('HomeCtrl', function ($scope, $stateParams, $ionicHistory, $state, $ionicModal, Commons) {
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
 
     //----
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  $scope.series = ['Series A', 'Series B'];
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-  };
-  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-  $scope.options = {
-    scales: {
-      yAxes: [
-        {
-          id: 'y-axis-1',
-          type: 'linear',
-          display: true,
-          position: 'left'
-        },
-        {
-          id: 'y-axis-2',
-          type: 'linear',
-          display: true,
-          position: 'right'
-        }
-      ]
-    }
-  };
-  //----
+    $scope.series = ['Series A', 'Series B'];
+    $scope.data = [
+      [65, 59, 80, 81, 56, 55, 40],
+      [28, 48, 40, 19, 86, 27, 90]
+    ];
+    $scope.onClick = function (points, evt) {
+      console.log(points, evt);
+    };
+    $scope.datasetOverride = [{
+      yAxisID: 'y-axis-1'
+    }, {
+      yAxisID: 'y-axis-2'
+    }];
+    $scope.options = {
+      scales: {
+        yAxes: [{
+            id: 'y-axis-1',
+            type: 'linear',
+            display: true,
+            position: 'left'
+          },
+          {
+            id: 'y-axis-2',
+            type: 'linear',
+            display: true,
+            position: 'right'
+          }
+        ]
+      }
+    };
+    //----
   })
-  .controller('TabunganCtrl', function ($scope, $stateParams, $ionicHistory, Commons,$http, ionicDatePicker, $timeout, Excel) {
+  .controller('TabunganCtrl', function ($scope, $stateParams, $ionicHistory, Commons, $http, ionicDatePicker, $timeout, Excel) {
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
 
-    $scope.table = [{th:'Nama', td:'Nama'},
-                    {th:'Tabungan1', td:'Tour'},
-                    {th:'Tabungan2', td:'Tabungan'},
-                    {th:'Tabungan3', td:'DanSos'},
-                    {th:'Total', td:'Total'}];
+    $scope.table = [{
+        th: 'Nama',
+        td: 'Nama'
+      },
+      {
+        th: 'Tabungan1',
+        td: 'Tour'
+      },
+      {
+        th: 'Tabungan2',
+        td: 'Tabungan'
+      },
+      {
+        th: 'Tabungan3',
+        td: 'DanSos'
+      },
+      {
+        th: 'Total',
+        td: 'Total'
+      }
+    ];
     $scope.user = Commons.getUser();
     $scope.tgl1 = '';
     $scope.tgl2 = '';
     $scope.getDtMaterialInventoryLogCartNumber = function () {
-      $scope.isLoading=true;
-      $http.get(Commons.getDefaultWebApi()+'BSINKBOSS/GetMaterialInventoryChangeLogTgl', {
+      $scope.isLoading = true;
+      $http.get(Commons.getDefaultWebApi() + 'BSINKBOSS/GetMaterialInventoryChangeLogTgl', {
         params: {
           tgl1: $scope.tgl1,
           tgl2: $scope.tgl2
@@ -505,14 +663,14 @@ angular.module('starter.controllers', [])
         } else {
           $scope.materialchangelog = response.data.tbl;
         }
-        $scope.isLoading=false;
+        $scope.isLoading = false;
       });
     }
     $scope.getDtMaterialInventoryLogCartNumber();
 
     $scope.openDatePickerOne = function (val) {
       var ipObj1 = {
-        callback: function (val) {  //Mandatory
+        callback: function (val) { //Mandatory
           console.log('Return value from the datepicker popup is : ' + val, new Date(val));
           $scope.tgl1 = new Date(val);
           var tgl1 = new Date(val);
@@ -535,9 +693,11 @@ angular.module('starter.controllers', [])
       ionicDatePicker.openDatePicker(ipObj1);
     };
     //export excel
-    $scope.exportToExcel=function(tableId){ // ex: '#my-table'
-      var exportHref=Excel.tableToExcel(tableId,'sheet1');
-      $timeout(function(){location.href=exportHref;},100); // trigger download
+    $scope.exportToExcel = function (tableId) { // ex: '#my-table'
+      var exportHref = Excel.tableToExcel(tableId, 'sheet1');
+      $timeout(function () {
+        location.href = exportHref;
+      }, 100); // trigger download
     }
 
   });
